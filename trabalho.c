@@ -1,60 +1,90 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define N 10
+/*
 
-// Sistema de Informação para uma livraria
+Podemos criar um sistema que simplesmente 
+1 - cadastra usuários, 
+2 - mostra
+3 - mostra1
+4 - cadastro livros 
+5 - vende livros, 
+6 - compra livros, 
+7 - consulta ao estoque,
+8 - devoluções de livros
 
-/*Podemos criar um sistema que simplesmente cadastra usuários, cadastro livros,
-mostra, mostra1, vende livros, compra livros, consulta ao estoque,
-devoluções de livros*/
+*/
 
-typedef struct
-{
-	int id;
-    int amount; // quantidade no estoque
-    char name[100];
-	int price;
-}
-book;
-
-typedef struct
-{
-	char name[50];
-}
-user;
-
-
-book books[N];
-
-struct a_definir{
+struct usuario{
 	//inserir código aqui
+	int id;
+	int idade; 
+	char nome[25];
+	char sobrenome[35];
+	char email[100];
 };
 
-void cadastro(struct a_definir T[]){
-	//inserir código aqui
+int idJaExiste(int id, struct usuario T[], int qtdJaCadastrada){
+	
+	int i; 
+
+	for(i = 0; i < qtdJaCadastrada; i++){
+		if(T[i].id == id){
+			printf("ID ja existe\n");
+			return 0; // ID ja existe
+		}
+	}
+
+	return 1; // ID nao existe
 }
 
-void mostra(struct a_definir T[]){
-	//inserir código aqui
-}
+// 1 - cadastra usuarios
+void cadastro(struct usuario T[]){
+	int i;
+	int qtdCadastro;
 
-void mostra1(struct a_definir T[]){
-	//inserir código aqui
-}
+	printf("Quantos usuarios vc quer cadastrar?\n");
+	scanf("%d", &qtdCadastro);
 
-// void cadastrar_livros(struct a_definir T[]){
-    
-// }
+	for(i = 0; i < qtdCadastro; i++){
+		
+		printf("\nUSUARIO %d\n", i + 1); 
+		
+		printf("Insira um id: ");
 
+		scanf("%d", &T[i].id) ;
+
+		if(idJaExiste(T[i].id, T, i) == 0){
+			return; 
+		}
+		 
+
+		printf("Insira um idade: ");		
+		scanf("%d", &T[i].idade);
+
+		printf("Insira um nome: ");
+		scanf("%s", &T[i].nome);
+
+		printf("Insira um sobrenome: ");
+		scanf("%s", &T[i].sobrenome );
+
+
+		printf("Insira um email: ");
+		scanf("%s", &T[i].email);
+	}
+
+
+
+}	
 
 void menu(){
 	int opcao;
-	struct a_definir P[30];
+	struct usuario P[30];
+
 
 	while(1){
-		printf("\nBem vindo ao Sistema de... ");
-		printf("\n1- Cadastrar Usuario");
+		printf("\nBem vindo ao Sistema de Livraria");
+		printf("\n1- Cadastrar");
 		printf("\n2- Mostrar Todos");
 		printf("\n3- Mostrar um");
         printf("\n4- Vender Livros ");
@@ -66,10 +96,10 @@ void menu(){
 		scanf("%d", &opcao);
 	
 		if(opcao == 1) cadastro(P);
-		if(opcao == 2) mostra(P);
-		if(opcao == 3) mostra1(P);
-        if(opcao == 4) castrar_livros(P);
-		if(opcao == 9) return;
+		// if(opcao == 2) mostra(P);
+		// if(opcao == 3) mostra(P);
+        // if(opcao == 2) mostra1(P);
+		// if(opcao == 9) return;
 	}
 }
 
