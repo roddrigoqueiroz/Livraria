@@ -109,6 +109,35 @@ void mudarCadastro(struct usuario T[]){
 // 	//inserir código aqui
 // }
 
+// 		scanf("%d", &T[i].id) ;
+
+// 		if(idJaExiste(T[i].id, T, i) == 0){
+// 			return; 
+// 		}
+		 
+
+// 		printf("Insira um idade: ");		
+// 		scanf("%d", &T[i].idade);
+
+// 		printf("Insira um nome: ");
+// 		scanf("%s", &T[i].nome);
+
+// 		printf("Insira um sobrenome: ");
+// 		scanf("%s", &T[i].sobrenome );
+
+
+// 		printf("Insira um email: ");
+// 		scanf("%s", &T[i].email);
+// 	}
+
+
+
+// }	
+
+// 4- Vender livros
+void venderLivros(struct usuario T[]){
+	
+}
 
 void menu(){
 	int opcao;
