@@ -6,6 +6,7 @@
 struct usuario{
 	int id;
 	char nome[25];
+    int mes;
 	int state; // Define se o usuário já foi cadastrado. 0 = nao, 1 = sim
 	double saldo;
 };
@@ -19,6 +20,13 @@ struct livros{
 	int state; // Define se o livro já foi cadastrado. 0 = nao, 1 = sim
 };
 
+
+int checaMes(int mes){
+    if (mes <= 12 && mes >= 1)
+        return 1; // 1 = True
+    else
+        return 0;
+}
 
 // 1 - cadastra usuarios
 void cadastro(struct usuario T[]){
@@ -41,6 +49,14 @@ void cadastro(struct usuario T[]){
 			printf("Insira um nome: ");
 			scanf("%[^\n]", T[i].nome);
 
+            printf("Digite o mes de aniversario: ");
+            scanf("%d", &T[i].mes);
+
+            while (checaMes(T[i].mes) == 0){
+                printf("Digite um mes valido. ");
+                scanf("%d", &T[i].mes);
+            }
+
 			printf("Insira o saldo: ");
 			scanf("%lf", &T[i].saldo);
 
@@ -61,6 +77,7 @@ void mostra(struct usuario T[]){
 			printf("\nUSUARIO %d\n", i + 1);
 			printf("ID: %d\n", T[i].id);
 			printf("Nome: %s\n", T[i].nome);
+            printf("Mes de aniversario: %d\n", T[i].mes);
 			printf("Saldo: R$ %.2lf\n", T[i].saldo);
 		}
     }
@@ -144,13 +161,6 @@ int achaUsuario(int id, struct usuario T[], int *posicao){
 	return 0; // 0 == False
 }
 
-int estoque(int qtdLivrosEstoque){
-	if (qtdLivrosEstoque < 0 )
-		return 0; // Nao há livro no estoque
-	else
-		return 1;
-}
-
 // 5 - Vender livros
 void venderLivros(struct usuario T[], struct livros L[]){
 	int idLivro, qtdLivros, posicaoLivro = 0;
@@ -194,12 +204,7 @@ void venderLivros(struct usuario T[], struct livros L[]){
 		while (opcao == 1){
 			if ((T[posicaoUsuario].saldo -= totalCompra) >= 0){
 
-				if (estoque(L[posicaoLivro].quantidade -= qtdLivros) == 0){
-					T[posicaoUsuario].saldo += totalCompra;
-					L[posicaoLivro].quantidade += qtdLivros;
-					printf("Livro sem estoque.\n");
-					return;
-				}
+				L[posicaoLivro].quantidade -= qtdLivros;
 
 				printf("\nNome do livro: %s\n", L[posicaoLivro].nome);
 				printf("Quantidade de livros no estoque: %d\n", L[posicaoLivro].quantidade);
@@ -325,6 +330,14 @@ void mudarCadastro(struct usuario T[]){
 		setbuf(stdin,NULL);
         printf("Alterar Nome: ");
         scanf("%[^\n]", T[posicaoUsuario].nome);
+
+        printf("Alterar mes de aniversario: ");
+        scanf("%d", T[posicaoUsuario].mes);
+
+        while (checaMes(T[i].mes) == 0){
+            printf("Digite um mes valido. ");
+            scanf("%d", &T[i].mes);
+        }
 
 		printf("Alterar saldo: ");
 		scanf("%lf", &T[posicaoUsuario].saldo);
